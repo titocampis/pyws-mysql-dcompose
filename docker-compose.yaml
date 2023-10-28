@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+  python_webserver:
+    image: python_webserver:latest
+    container_name: python_webserver
+
+  mysql_db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    # Configure mysql service
+    environment:
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+
+# Names our volume
+volumes:
+  my-db:
