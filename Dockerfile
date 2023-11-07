@@ -1,11 +1,14 @@
 # Installing ubuntu:20.04 image
 FROM ubuntu:20.04
 
-# Updating, upgrading the system and installing python libraries
-RUN apt-get update && apt-get install -y python3 python3-pip
+# Updating and upgrading the system
+RUN apt-get update && apt-get upgrade -y
 
-# Install flask python framework
-RUN pip install flask 
+# Installing python libraries
+RUN apt-get install -y python3 python3-pip
+
+# Install python modules
+RUN pip install flask mysql-connector-python
 
 # Copy the web application python file into /opt directory
 COPY app.py /opt/
