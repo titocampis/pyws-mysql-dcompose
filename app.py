@@ -29,5 +29,6 @@ def main():
         color = '#ff3f3f'
         err_message = str(e)
     return render_template('template.html', debug="Environment Variables: MYSQL_HOST=" + (MYSQL_HOST or "Not Set") + "; MYSQL_DATABASE=" + (MYSQL_DATABASE  or "Not Set") + "; MYSQL_USER=" + (MYSQL_USER  or "Not Set") + "; MYSQL_PASSWORD=" + (MYSQL_PASSWORD  or "Not Set") + "; " + err_message, db_connect_result=db_connect_result, name=socket.gethostname(), color=color)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
