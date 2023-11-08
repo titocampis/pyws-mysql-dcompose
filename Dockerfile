@@ -7,11 +7,11 @@ RUN apt-get update && apt-get upgrade -y
 # Installing python libraries
 RUN apt-get install -y python3 python3-pip
 
-# Install python modules
-RUN pip install flask mysql-connector-python
+# Install python modules - https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi
+RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org flask mysql-connector-python
 
 # Copy the web application python files into /opt directory
 COPY . /opt/
 
 # Run the webservice once the container starts
-ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=8080
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=${PYTHON_HOST} --port=${PYTHON_PORT}

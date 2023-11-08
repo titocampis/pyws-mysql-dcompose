@@ -5,34 +5,32 @@ services:
     container_name: python-ws
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      # So you don't have to use root, but you can if you like
       MYSQL_USER: ${MYSQL_USER}
-      # You can use whatever password you like
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      # Password for root access
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PYTHON_HOST: ${PYTHON_HOST}
+      PYTHON_PORT: ${PYTHON_PORT}
+      MYSQL_SERVICE: ${MYSQL_SERVICE}
     ports:
-    - 8080:8080
+    - ${PYTHON_PORT}:${PYTHON_PORT}
     expose:
-    - 8080
+    - ${PYTHON_PORT}
 
-  mysq-db:
+  mysql-db:
     image: mysql:5.7
-    container_name: mysql-db
+    container_name: ${MYSQL_SERVICE}
     restart: always
     # Configure mysql service
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      # So you don't have to use root, but you can if you like
       MYSQL_USER: ${MYSQL_USER}
-      # You can use whatever password you like
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      # Password for root access
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
     ports:
-    - 3306:3306
+    - ${MYSQL_PORT}:${MYSQL_PORT}
     expose:
-    - 3306
+    - ${MYSQL_PORT}
     # Where our data will be persisted
     volumes:
     - my-db:/var/lib/mysql
