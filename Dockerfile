@@ -13,5 +13,5 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 # Copy the web application python files into /opt directory
 COPY . /opt/
 
-# Run the webservice once the container starts
+# Run the webservice once the container starts, it will use the envs for the .env file as it is run using docker compose
 ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=${PYTHON_HOST} --port=${PYTHON_PORT}
