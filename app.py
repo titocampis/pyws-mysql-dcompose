@@ -43,10 +43,6 @@ def check_db(db_name=None):
         err_message = str(e)
     return render_template('template.html', debug="Environment Variables: MYSQL_HOST=" + (MYSQL_SERVICE or "Not Set") + "; MYSQL_DATABASE=" + (db_name  or "Not Set") + "; MYSQL_USER=" + (MYSQL_USER  or "Not Set") + "; MYSQL_PASSWORD=" + (MYSQL_PASSWORD  or "Not Set") + "; " + err_message, db_connect_result=db_connect_result, name=socket.gethostname(), color=color)
 
-@app.route('/marlot-naturopata/')
-def render_marlot():
-    return render_template('marlot.html')
-
 # When you run the file as a script by passing the file object to your Python interpreter,
 # __name__ is __main, therefore the expression expression __name__ == "__main__" returns True
 # so the code block under will run. Otherwise it will be False, and nothing will be executed.

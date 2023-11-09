@@ -7,6 +7,38 @@ This web application is a simple web application to manage a `mysql` db. It is c
 
 ### 1.2 app.py
 
+#### 1.2.1 Core Concepts
+Main script to run the Flask web server. At first we have the following line:
+```python
+app = Flask(__name__)
+```
+Because Every Flask application is an WSGI instance of the Flask class. Therefore, we need to create the instance called app (you can choose the name you want). It is needed to pass the reserved variable `__name__`, which will be `__main__` if it is the main module, the one executed by the interpreter, not by another python script.
+
+At the end we have:
+```python
+if __name__ == "__main__":
+    app.run(host=PYTHON_HOST, port=PYTHON_PORT)
+```
+
+Because when you run the file as a script by passing the file object to your Python interpreter `__name__` is `__main__`, therefore the expression expression `__name__` == `__main__` returns `True`, so the code block under will run. Otherwise it will be `False`, and nothing will be executed.
+
+#### 1.2.2 Controller Configuration
+**Basic Endpoint Configuration**
+
+```python
+@app.route("/")
+def main():
+    return "Welcome to the MySQL DB Tester!\n"
+```
+
+Flask makes us transparent the path exposure. So we just need to add decorators to out methods, like: `app.route("the_route_i_want")`
+
+>:warning: **WARNING:** Al definir una URL acabada con el carácter `/`, si el usuario accede a esa URL sin dicho carácter, Flask lo redirigirá a la URL acabada en `/`. En cambio, si la URL se define sin acabar en `/` y el usuario accede indicando la `/` al final, Flask dará un error HTTP 404.
+
+**Render Template Endpoint**
+
+...
+
 
 ## 2. Docker Compose
 ### 2.1 Building and configuring Mysql Service
