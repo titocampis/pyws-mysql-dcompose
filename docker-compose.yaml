@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+  python-ws:
+    image: python-ws:latest
+    container_name: python-ws
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PYTHON_HOST: ${PYTHON_HOST}
+      PYTHON_PORT: ${PYTHON_PORT}
+      MYSQL_SERVICE: ${MYSQL_SERVICE}
+    ports:
+    - ${PYTHON_PORT}:${PYTHON_PORT}
+    expose:
+    - ${PYTHON_PORT}
+
+  mysql-db:
+    image: mysql:5.7
+    container_name: ${MYSQL_SERVICE}
+    restart: always
+    # Configure mysql service
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
+    ports:
+    - ${MYSQL_PORT}:${MYSQL_PORT}
+    expose:
+    - ${MYSQL_PORT}
+    # Where our data will be persisted
+    volumes:
+    - my-db:/var/lib/mysql
+
+# Names our volume
+volumes:
+  my-db:
